@@ -4,6 +4,8 @@
  *
  * -Description-
  *
+ * XKL EDFA state alarms.
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -18,8 +20,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @link       http://librenms.org
- * @copyright  2026 <your name>
- * @author     <your name> <your email>
+ * @copyright  2026 Heath Barnhart
+ * @author     Heath Barnhart hbarnhart@kanren.net
  */
 
 namespace LibreNMS\Snmptrap\Handlers;
@@ -72,16 +74,16 @@ class XklEdfaAlarmChange implements SnmptrapHandler
             $message = "$edfaName pump temperature alarm is active.";
         }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpBiasAlarm')) == 2) {
-            $message = "$edfaName loss of input alarm is active.";
+            $message = "$edfaName EDFA pump BIAS alarm is active.";
+            $severity = Severity::Error;
         }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfInputAlarm')) == 2) {
             $message = "$edfaName loss of input alarm is active.";
+            $severity = Severity::Error;
         }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfOutputAlarm')) == 2) {
             $message = "$edfaName loss of output alarm is active.";
-        }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfOutputAlarm')) == 2) {
-            $message = "$edfaName loss of output alarm is active.";
+            $severity = Severity::Error;
         }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAModuleAlarms')) != "NONE") {
             $message = "$edfaName module alarm: $trap->getOidData($trap->findOid('XKL-MIB::xklEDFAModuleAlarms'))";
