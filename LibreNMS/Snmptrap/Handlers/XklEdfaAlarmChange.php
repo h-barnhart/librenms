@@ -20,7 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @link       http://librenms.org
- * @copyright  2026 Heath Barnhart
+ * @copyright  'yes'0'yes'6 Heath Barnhart
  * @author     Heath Barnhart hbarnhart@kanren.net
  */
 
@@ -54,39 +54,41 @@ class XklEdfaAlarmChange implements SnmptrapHandler
 
         $severity = Severity::Warning;
         $edfaName = $trap->getOidData($trap->findOid('XKL-MIB::xklEDFAName'));
+        $message = "Alarm not found";
 
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAInReset')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAInReset')) == 'yes') {
             $message = "$edfaName reset.";
         } 
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFADisabled')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFADisabled')) == 'yes') {
             $message = "$edfaName changed to disabled.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAMuted')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAMuted')) == 'yes') {
             $message = "$edfaName has become muted.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACaseTemperatureAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACaseTemperatureAlarm')) == 'yes') {
             $message = "$edfaName case temperature alarm is active.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACommonAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACommonAlarm')) == 'yes') {
             $message = "$edfaName common alarm is active.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpTemperatureAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpTemperatureAlarm')) == 'yes') {
             $message = "$edfaName pump temperature alarm is active.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpBiasAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpBiasAlarm')) == 'yes') {
             $message = "$edfaName EDFA pump BIAS alarm is active.";
             $severity = Severity::Error;
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfInputAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfInputAlarm')) == 'yes') {
             $message = "$edfaName loss of input alarm is active.";
             $severity = Severity::Error;
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfOutputAlarm')) == 2) {
+        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFALossOfOutputAlarm')) == 'yes') {
             $message = "$edfaName loss of output alarm is active.";
             $severity = Severity::Error;
         }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAModuleAlarms')) != "NONE") {
-            $message = "$edfaName module alarm: $trap->getOidData($trap->findOid('XKL-MIB::xklEDFAModuleAlarms'))";
+            $moduleName = $trap->getOidData($trap->findOid('XKL-MIB::xklEDFAModuleAlarms'));
+            $message = "$edfaName module alarm: $moduleName";
         }
 
 		$trap->log($message,$severity);

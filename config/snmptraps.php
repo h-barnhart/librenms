@@ -196,7 +196,10 @@ return [
         'XKL-MIB::xklRxPowerOK' => LibreNMS\Snmptrap\Handlers\XklRxPowerOK::class,
         'XKL-MIB::xklRxPowerLoWarn' => LibreNMS\Snmptrap\Handlers\XklRxPowerLoWarn::class,
         'XKL-MIB::xklRxPowerLoAlrm' => LibreNMS\Snmptrap\Handlers\XklRxPowerLoAlrm::class,
+        'XKL-MIB::xklRxPowerHiWarn' => LibreNMS\Snmptrap\Handlers\XklRxPowerHiWarn::class,
+        'XKL-MIB::xklRxPowerHiAlrm' => LibreNMS\Snmptrap\Handlers\XklRxPowerHiAlrm::class,
         'XKL-MIB::xklAutomaticOTDRTriggered' => LibreNMS\Snmptrap\Handlers\XklAutomaticOTDRTriggered::class,
         'XKL-MIB::xklEDFAAlarmChange' => LibreNMS\Snmptrap\Handlers\XklEdfaAlarmChange::class,
+        'XKL-MIB::xklEDFALineChange' => LibreNMS\Snmptrap\Handlers\XklEdfaLineChange::class,
     ],
 ];

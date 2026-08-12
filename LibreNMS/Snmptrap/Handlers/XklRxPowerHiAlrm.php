@@ -1,10 +1,10 @@
 <?php
 /**
- * XklRxPowerLoWarn.php
+ * XklRxPowerHiAlrm.php
  *
  * -Description-
  * 
- * XKL transceiver receive power is below the warning threshold.
+ * XkL transciever has dropped exceeded the its upper recieve threshold.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ use LibreNMS\Enum\Severity;
 use LibreNMS\Interfaces\SnmptrapHandler;
 use LibreNMS\Snmptrap\Trap;
 
-class XklRxPowerLoWarn implements SnmptrapHandler
+class XklRxPowerHiAlrm implements SnmptrapHandler
 {
     /**
      * Handle snmptrap.
@@ -45,12 +45,12 @@ class XklRxPowerLoWarn implements SnmptrapHandler
     {
 
         $rxPower = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportReceivePower'));
-        $rxLoAlarm = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportRxPowerLoWarnThresh'));
+        $rxHiAlarm = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportRxPowerHiAlrmThresh'));
         $xcvrDescr = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportDescr'));
 
-        $message = "Transciever $xcvrDescr is below recieve warning threshold $rxLoAlarm. Current value: $rxPower";
+        $message = "Transciever $xcvrDescr is above recieve alarm threshold $rxHiAlarm. Current value: $rxPower";
         
-		$trap->log($message, Severity::Warning);
+		$trap->log($message, Severity::Error);
 
     }
 }

@@ -46,7 +46,7 @@ class XklRxPowerLoAlrm implements SnmptrapHandler
 
         $rxPower = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportReceivePower'));
         $rxLoAlarm = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportRxPowerLoAlrmThresh'));
-        $xcvrDescr = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportDescr.33'));
+        $xcvrDescr = $trap->getOidData($trap->findOid('XKL-MIB::xklTransportDescr'));
 
         $message = "Transciever $xcvrDescr is below recieve alarm threshold $rxLoAlarm. Current value: $rxPower";
         
