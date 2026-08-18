@@ -68,9 +68,6 @@ class XklEdfaAlarmChange implements SnmptrapHandler
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACaseTemperatureAlarm')) == 'yes') {
             $message = "$edfaName case temperature alarm is active.";
         }
-        if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFACommonAlarm')) == 'yes') {
-            $message = "$edfaName common alarm is active.";
-        }
         if ($trap->getOidData($trap->findOid('XKL-MIB::xklEDFAPumpTemperatureAlarm')) == 'yes') {
             $message = "$edfaName pump temperature alarm is active.";
         }
